@@ -1,10 +1,14 @@
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import { useCallback } from 'react';
+import { BottomTabNavigation } from './navigation/BottomTabNavigation';
 
+const Stack = createNativeStackNavigator();
 
 export default function App() {
 
@@ -14,6 +18,7 @@ export default function App() {
     bold: require("./assets/fonts/Poppins-Bold.ttf"),
     medium: require("./assets/fonts/Poppins-Medium.ttf"),
     extrabold: require("./assets/fonts/Poppins-ExtraBold.ttf"),
+    semibold: require("./assets/fonts/Poppins-SemiBold.ttf"),
   }
 );
 
@@ -31,10 +36,13 @@ if (!fontsLoaded) {
 
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.textStyle}>Will come back later...</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Screen
+       name='Bottom Navigation'
+       component={BottomTabNavigation}
+       options={{headerShown:false}}
+      />
+    </NavigationContainer>
   );
 }
 
@@ -44,10 +52,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  textStyle: {
-    fontFamily: "extrabold",
-    fontSize: 24,
-    color: "red"
   }
 });
